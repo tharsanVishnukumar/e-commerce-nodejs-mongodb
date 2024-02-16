@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { Schema, HydratedDocument } from "mongoose";
 import { Model, TObjectId } from "./type";
 
 export enum Status {
@@ -11,6 +11,8 @@ export interface ISession {
     user: TObjectId,
     status: Status,
 }
+export interface ISessionDocument extends HydratedDocument<ISession> { }
+
 export class SessionModel extends Model<ISession> {
     constructor() {
         super({

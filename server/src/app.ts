@@ -7,6 +7,9 @@ export const app = express();
 export const server = createServer(app);
 export const socket = new Socket(server);
 
-for (const controller of Controllers) {
-    new controller(app, socket).init();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+for (const Controller of Controllers) {
+    new Controller(app, socket).init();
 }

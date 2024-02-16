@@ -7,7 +7,10 @@ const database = new Database();
 const main = async () => {
     await database.connect();
     app.listen(envirements.port, () => {
-        log({ message: `Server is running in port ${envirements.port}`, type: 'info' });
+        log({
+            message: `Server is running in port ${envirements.port}`,
+            type: 'info'
+        });
     });
 };
 main().catch((err) => log({ message: err.message, type: 'error' }));

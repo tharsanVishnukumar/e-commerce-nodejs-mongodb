@@ -13,6 +13,9 @@ interface TAuthenticateData {
     email: string;
     password: string;
 }
+interface TPopulateData {
+    userid: string;
+}
 
 export class UserService {
     public async create(data: TCreateUserData): Promise<IUserDocument> {
@@ -29,5 +32,12 @@ export class UserService {
         const isPassword = await compare(data.password, user.password);
         if (!isPassword) throw new Errors("email or password is not valid ", 203, ["email", "password"]);
         return user;
+    }
+    public async populate(data: TPopulateData): Promise<IUserDocument> {
+        const user = await userModel.model.findOne({ _id: data.userid }).select("-password");
+        if (!user) throw new Errors("User not found", 404, ["token"]);
+        // send email with verification token
+        return user;
+
     }
 }
